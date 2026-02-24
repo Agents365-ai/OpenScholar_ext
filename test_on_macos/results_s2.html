@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenScholar Results</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --accent: #dbeafe;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        .qa-card {
+            background: var(--card);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        .question {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .question-num {
+            background: rgba(255,255,255,0.2);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+            font-size: 0.85rem;
+        }
+        .answer {
+            padding: 1.5rem;
+            background: var(--accent);
+            border-bottom: 1px solid var(--border);
+        }
+        .answer-label {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .answer-text {
+            white-space: pre-wrap;
+        }
+        .citation {
+            background: var(--primary);
+            color: white;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .citation:hover { opacity: 0.8; }
+        .references {
+            padding: 1.5rem;
+        }
+        .references-label {
+            font-weight: 600;
+            color: var(--muted);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .ref-item {
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+        .ref-item:hover { border-color: var(--primary); }
+        .ref-item.cited { background: #f0fdf4; border-color: #22c55e; }
+        .ref-num {
+            display: inline-block;
+            background: var(--muted);
+            color: white;
+            padding: 0.1rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+        .ref-item.cited .ref-num { background: #22c55e; }
+        .ref-title {
+            font-weight: 600;
+            color: var(--text);
+        }
+        .ref-title a { color: var(--primary); text-decoration: none; }
+        .ref-title a:hover { text-decoration: underline; }
+        .ref-meta {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 0.25rem;
+        }
+        .ref-abstract {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 0.5rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--border);
+        }
+        .badge {
+            display: inline-block;
+            background: var(--border);
+            padding: 0.1rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+        .badge.cited { background: #dcfce7; color: #166534; }
+        footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 OpenScholar Results</h1>
+
+        <div class="qa-card">
+            <div class="question">
+                <span class="question-num">Q1</span> What is retrieval-augmented generation?
+            </div>
+            <div class="answer">
+                <div class="answer-label">Answer</div>
+                <div class="answer-text">Retrieval-Augmented Generation (RAG) is an approach that enhances large language models (LLMs) by retrieving information from external knowledge resources during the text generation process <span class="citation">[0]</span>. This method actively decides when and what to retrieve across the course of the generation, allowing LLMs to gather information continuously throughout the process. RAG has been shown to be effective in mitigating hallucinations and improving performance on various tasks such as question answering, text summarization, and more <span class="citation">[1]</span><span class="citation">[2]</span><span class="citation">[3]</span><span class="citation">[6]</span>. There are different types of RAG methods, including dynamic retrieval-augmented generation (DRAG) <span class="citation">[2]</span>, which actively decides when and what to retrieve during the text generation process, and parametric retrieval-augmented generation (PRAG), which rethinks how the retrieved knowledge should be incorporated into the LLM <span class="citation">[1]</span>. Other approaches include structured RAG (SRAG) <span class="citation">[4]</span>, which systematically organizes extracted entities into relational tables for better analysis, and DioR <span class="citation">[6]</span>, an adaptive cognitive detection and contextual retrieval optimization method that determines when retrieval is needed and what to retrieve. Additionally, there are methods like GraphFlow <span class="citation">[9]</span> that efficiently retrieve accurate and diverse knowledge from text-rich knowledge graphs. Overall, RAG has shown great potential in enhancing the performance of LLMs by providing them with external knowledge during generation.</div>
+            </div>
+            <div class="references">
+                <div class="references-label">References (7 cited / 10 total)</div>
+
+                <div class="ref-item cited">
+                    <div class="ref-title">
+                        <span class="ref-num">0</span>
+                        <a href="https://www.semanticscholar.org/paper/88884b8806262a4095036041e3567d450dba39f7" target="_blank">Active Retrieval Augmented Generation</a>
+                        <span class="badge cited">Cited</span>
+                        <span class="badge">📊 521 citations</span>
+                    </div>
+<div class="ref-abstract">Despite the remarkable ability of large language models (LMs) to comprehend and generate language, they have a tendency to hallucinate and create factually inaccurate output. Augmenting LMs by retrieving information from external knowledge resources ...</div></div>
+                <div class="ref-item cited">
+                    <div class="ref-title">
+                        <span class="ref-num">1</span>
+                        <a href="https://www.semanticscholar.org/paper/c2d2d5872357f2d4b95cf068ba9703f925040ca1" target="_blank">Dynamic and Parametric Retrieval-Augmented Generation</a>
+                        <span class="badge cited">Cited</span>
+                        <span class="badge">📊 9 citations</span>
+                    </div>
+<div class="ref-abstract">Retrieval-Augmented Generation (RAG) has become a foundational paradigm for enhancing large language models (LLMs) with external knowledge, playing an important role in modern information retrieval and knowledge-intensive NLP applications. Standard R...</div></div>
+                <div class="ref-item cited">
+                    <div class="ref-title">
+                        <span class="ref-num">2</span>
+                        <a href="https://www.semanticscholar.org/paper/1cc6cc4960f7df59e7813d9a8e11098d0a0d0720" target="_blank">DRAGIN: Dynamic Retrieval Augmented Generation based on the Real-time Information Needs of Large Language Models</a>
+                        <span class="badge cited">Cited</span>
+                        <span class="badge">📊 54 citations</span>
+                    </div>
+<div class="ref-abstract">Dynamic retrieval augmented generation (RAG) paradigm actively decides when and what to retrieve during the text generation process of Large Language Models (LLMs). There are two key elements of this paradigm: identifying the optimal moment to activa...</div></div>
+                <div class="ref-item cited">
+                    <div class="ref-title">
+                        <span class="ref-num">3</span>
+                        <a href="https://www.semanticscholar.org/paper/64ee29d6ddb2c2167a201783ddd4d0a9b744f352" target="_blank">Understand What LLM Needs: Dual Preference Alignment for Retrieval-Augmented Generation</a>
+                        <span class="badge cited">Cited</span>
+                        <span class="badge">📊 37 citations</span>
+                    </div>
+<div class="ref-abstract">Retrieval-augmented generation (RAG) has effectively mitigated the hallucination problem of large language models (LLMs). However, the difficulty of aligning the retriever with the LLMs' diverse knowledge preferences inevitably poses a challenge in d...</div></div>
+                <div class="ref-item cited">
+                    <div class="ref-title">
+                        <span class="ref-num">4</span>
+                        <a href="https://www.semanticscholar.org/paper/e2eb27ab435a3507c2926e39b4e47e763fc6e47f" target="_blank">SRAG: Structured Retrieval-Augmented Generation for Multi-Entity Question Answering over Wikipedia Graph</a>
+                        <span class="badge cited">Cited</span>
+                        <span class="badge">📊 5 citations</span>
+                    </div>
+<div class="ref-abstract">Multi-entity question answering (MEQA) poses significant challenges for large language models (LLMs), which often struggle to consolidate scattered information across multiple documents. An example question might be"What is the distribution of IEEE F...</div></div>
+                <div class="ref-item">
+                    <div class="ref-title">
+                        <span class="ref-num">5</span>
+                        <a href="https://www.semanticscholar.org/paper/b75230181c0306dcbfe079434975671c9142ccf6" target="_blank">A Systematic Exploration of Knowledge Graph Alignment with Large Language Models in Retrieval Augmented Generation</a>
+                        
+                        <span class="badge">📊 3 citations</span>
+                    </div>
+<div class="ref-abstract">Retrieval Augmented Generation (RAG) with Knowledge Graphs (KGs) is an effective way to enhance Large Language Models (LLMs). Due to the natural discrepancy between structured KGs and sequential LLMs, KGs must be linearized to text before being input...</div></div>
+                <div class="ref-item cited">
+                    <div class="ref-title">
+                        <span class="ref-num">6</span>
+                        <a href="https://www.semanticscholar.org/paper/a057a3dd30b925df673ff896a1406033cd00c1d2" target="_blank">DioR: Adaptive Cognitive Detection and Contextual Retrieval Optimization for Dynamic Retrieval-Augmented Generation</a>
+                        <span class="badge cited">Cited</span>
+                        <span class="badge">📊 3 citations</span>
+                    </div>
+<div class="ref-abstract">Dynamic Retrieval-augmented Generation (RAG) has shown great success in mitigating hallucinations in large language models (LLMs) during generation. However, existing dynamic RAG methods face significant limitations in two key aspects: 1) Lack of an ...</div></div>
+                <div class="ref-item">
+                    <div class="ref-title">
+                        <span class="ref-num">7</span>
+                        <a href="https://www.semanticscholar.org/paper/42f493ef312fde1198c75a11640cf0f8e3a73636" target="_blank">Creating Conversational Datasets for Retrieval-Augmented Generation Applications is Hard: Challenges & Research Opportunities</a>
+                        
+                        <span class="badge">📊 2 citations</span>
+                    </div>
+<div class="ref-abstract">Retrieval-augmented generation (RAG) has been proven to help mitigate hallucinations from large language models (LLMs). However, as more domains adopt this method, the need for human-created conversational data increases, as human-created conversatio...</div></div>
+                <div class="ref-item">
+                    <div class="ref-title">
+                        <span class="ref-num">8</span>
+                        <a href="https://www.semanticscholar.org/paper/8ce274706c155c147db937ef40c3e84b8c41c8eb" target="_blank">Quantitative Evaluation of Using Large Language Models and Retrieval-Augmented Generation in Computer Science Education</a>
+                        
+                        <span class="badge">📊 2 citations</span>
+                    </div>
+<div class="ref-abstract">Generative artificial intelligence (GenAI) is transforming Computer Science education, and every instructor is reflecting on how AI will impact their courses. Instructors must determine how students may use AI for course activities and what AI system...</div></div>
+                <div class="ref-item cited">
+                    <div class="ref-title">
+                        <span class="ref-num">9</span>
+                        <a href="https://www.semanticscholar.org/paper/6d95d447814f7733da50d81d82b345aa40c6de2a" target="_blank">Can Knowledge-Graph-based Retrieval Augmented Generation Really Retrieve What You Need?</a>
+                        <span class="badge cited">Cited</span>
+                        <span class="badge">📊 1 citations</span>
+                    </div>
+<div class="ref-abstract">Retrieval-Augmented Generation (RAG) based on knowledge graphs (KGs) enhances large language models (LLMs) by providing structured and interpretable external knowledge. However, existing KG-based RAG methods struggle to retrieve accurate and diverse ...</div></div>
+            </div>
+        </div>
+
+        <footer>
+            Generated by OpenScholar • <a href="https://github.com/AkariAsai/OpenScholar">GitHub</a>
+        </footer>
+    </div>
+</body>
+</html>

@@ -58,7 +58,7 @@ def generate_markdown(data, output_path):
                 title = ctx.get("title", "Untitled")
                 url = ctx.get("url", "")
                 citations = ctx.get("citation_counts", 0)
-                abstract = ctx.get("abstract", "")
+                abstract = ctx.get("abstract", "") or ctx.get("text", "")
 
                 cited_marker = " ✓" if str(idx) in cited else ""
                 if url:
@@ -253,7 +253,7 @@ def generate_html(data, output_path):
             title = ctx.get("title", "Untitled")
             url = ctx.get("url", "")
             citations = ctx.get("citation_counts", 0)
-            abstract = ctx.get("abstract", "")
+            abstract = ctx.get("abstract", "") or ctx.get("text", "")
             is_cited = str(idx) in cited
 
             cited_class = " cited" if is_cited else ""
