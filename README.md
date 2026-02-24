@@ -19,7 +19,7 @@
 
 #### 单问题模式（使用 S2 检索）
 ```bash
-python test_on_macos/run_openscholar.py \
+python run_openscholar.py \
     -q "What is CRISPR gene editing?" \
     --ss_retriever \
     --top_n 10
@@ -27,7 +27,7 @@ python test_on_macos/run_openscholar.py \
 
 #### 标准 RAG Pipeline
 ```bash
-python test_on_macos/run_openscholar.py \
+python run_openscholar.py \
     --input_file YOUR_INPUT_FILE \
     --use_contexts \
     --output_file output.json \
@@ -36,7 +36,7 @@ python test_on_macos/run_openscholar.py \
 
 #### 检索 + 重排序 Pipeline
 ```bash
-python test_on_macos/run_openscholar.py \
+python run_openscholar.py \
     --input_file YOUR_INPUT_FILE \
     --use_contexts --ranking_ce \
     --reranker BAAI/bge-reranker-base \
@@ -46,7 +46,7 @@ python test_on_macos/run_openscholar.py \
 
 #### 自反馈生成 Pipeline
 ```bash
-python test_on_macos/run_openscholar.py \
+python run_openscholar.py \
     --input_file YOUR_INPUT_FILE \
     --use_contexts --ranking_ce \
     --reranker BAAI/bge-reranker-base \
