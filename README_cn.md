@@ -121,9 +121,12 @@ python visualize_results.py output.json --html --md --pdf
 | `--sample_k` | ✓ | ✓ | 采样 K 条数据 |
 | `--reverse` | ✓ | ✓ | 反转数据顺序 |
 | `--start_index` | ✓ | ✓ | 从指定索引开始 |
-| `--api` | ✓ | ✗ | API 提供商（openai/together/anyscale） |
-| `--api_key_fp` | ✓ | ✗ | API 密钥文件路径 |
-| `--download_dir` | ✓ | ✗ | 模型下载目录 |
+| `--api` | ✓ | ✓* | API 提供商（忽略，使用 LM Studio） |
+| `--api_key_fp` | ✓ | ✓* | API 密钥文件路径（忽略，使用 LM Studio） |
+| `--download_dir` | ✓ | ✓* | 模型下载目录（忽略，使用 LM Studio） |
+| `--use_slow_tokenizer` | ✓ | ✓* | 慢速分词器（忽略，使用 LM Studio） |
+
+*这些参数为 CLI 兼容性而保留，但实际被忽略（LM Studio 负责模型加载）
 
 ---
 

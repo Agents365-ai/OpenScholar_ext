@@ -121,9 +121,12 @@ python visualize_results.py output.json --html --md --pdf
 | `--sample_k` | ✓ | ✓ | Sample K items |
 | `--reverse` | ✓ | ✓ | Reverse data order |
 | `--start_index` | ✓ | ✓ | Start from index |
-| `--api` | ✓ | ✗ | API provider (openai/together/anyscale) |
-| `--api_key_fp` | ✓ | ✗ | API key file path |
-| `--download_dir` | ✓ | ✗ | Model download directory |
+| `--api` | ✓ | ✓* | API provider (ignored, uses LM Studio) |
+| `--api_key_fp` | ✓ | ✓* | API key file path (ignored, uses LM Studio) |
+| `--download_dir` | ✓ | ✓* | Model download directory (ignored, uses LM Studio) |
+| `--use_slow_tokenizer` | ✓ | ✓* | Slow tokenizer (ignored, uses LM Studio) |
+
+*These parameters are accepted for CLI compatibility but ignored (LM Studio handles model loading)
 
 ---
 

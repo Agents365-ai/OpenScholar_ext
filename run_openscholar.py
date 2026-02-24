@@ -310,6 +310,16 @@ def main():
     parser.add_argument("--llama3", action="store_true", help="Use Llama3 chat template")
     parser.add_argument("--zero_shot", action="store_true", help="Zero-shot inference")
 
+    # API config (for run.py compatibility, not used in LM Studio mode)
+    parser.add_argument("--api", type=str, default=None,
+                       help="API provider (ignored, uses LM Studio)")
+    parser.add_argument("--api_key_fp", type=str, default=None,
+                       help="API key file path (ignored, uses LM Studio)")
+    parser.add_argument("--download_dir", type=str, default="./cache",
+                       help="Model download dir (ignored, uses LM Studio)")
+    parser.add_argument("--use_slow_tokenizer", action="store_true",
+                       help="Use slow tokenizer (ignored, uses LM Studio)")
+
     # Generation config
     parser.add_argument("--top_n", type=int, default=10,
                        help="Number of passages to use")
