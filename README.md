@@ -1,4 +1,84 @@
-# OpenScholar 
+# OpenScholar Extension
+
+本仓库包含 OpenScholar 的扩展版本，支持 macOS 本地运行。
+
+## macOS 本地运行指南
+
+原版 OpenScholar 的 `run.py` 依赖 vllm，仅支持 Linux + CUDA 环境。本扩展提供了 macOS 兼容方案，使用 **LM Studio** 作为推理后端。
+
+### 快速开始
+
+1. **安装 LM Studio**：从 [lmstudio.ai](https://lmstudio.ai/) 下载并安装
+2. **加载模型**：在 LM Studio 中加载 `Llama-3.1-OpenScholar-8B` 模型并启动服务器
+3. **设置 API Key**（可选）：
+   ```bash
+   export S2_API_KEY=你的Semantic_Scholar_API_KEY
+   ```
+
+### 使用示例
+
+#### 单问题模式（使用 S2 检索）
+```bash
+python test_on_macos/run_openscholar.py \
+    -q "What is CRISPR gene editing?" \
+    --ss_retriever \
+    --top_n 10
+```
+
+#### 标准 RAG Pipeline
+```bash
+python test_on_macos/run_openscholar.py \
+    --input_file YOUR_INPUT_FILE \
+    --use_contexts \
+    --output_file output.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
+#### 检索 + 重排序 Pipeline
+```bash
+python test_on_macos/run_openscholar.py \
+    --input_file YOUR_INPUT_FILE \
+    --use_contexts --ranking_ce \
+    --reranker BAAI/bge-reranker-base \
+    --output_file output.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
+#### 自反馈生成 Pipeline
+```bash
+python test_on_macos/run_openscholar.py \
+    --input_file YOUR_INPUT_FILE \
+    --use_contexts --ranking_ce \
+    --reranker BAAI/bge-reranker-base \
+    --feedback --use_abstract --norm_cite \
+    --max_per_paper 3 \
+    --output_file output.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
+### 参数说明
+
+| 参数 | 说明 |
+|------|------|
+| `--ss_retriever` | 使用 Semantic Scholar API 进行论文检索 |
+| `--ranking_ce` | 启用交叉编码器重排序 |
+| `--feedback` | 启用自反馈生成循环 |
+| `--task_name` | 任务类型：`default`, `scifact`, `pubmedqa`, `qasa` |
+| `--min_citation` | 最小引用数过滤 |
+| `--use_abstract` | 使用摘要进行重排序 |
+| `--max_per_paper` | 每篇论文最大段落数 |
+
+### 结果可视化
+
+```bash
+python test_on_macos/visualize_results.py \
+    test_on_macos/output.json \
+    --html --md --pdf
+```
+
+---
+
+# OpenScholar (Original)
 
 This repository contains the code bases of OpenScholar. 
 
