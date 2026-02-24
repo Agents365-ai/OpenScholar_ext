@@ -106,6 +106,11 @@ python run_openscholar.py \
 ### More Usage Examples
 
 #### Task-Specific: SciFact (Claim Verification)
+**Use case**: Verify if a scientific claim is true or false based on literature evidence.
+- Input: A claim like "Vitamin C prevents cancer"
+- Output: SUPPORTS / REFUTES / NOT ENOUGH INFO with citations
+- Best for: Fact-checking scientific statements, paper review, news verification
+
 ```bash
 python run_openscholar.py \
     --input_file scifact_data.json \
@@ -116,6 +121,11 @@ python run_openscholar.py \
 ```
 
 #### Task-Specific: PubMedQA (Yes/No/Maybe)
+**Use case**: Answer biomedical yes/no questions based on PubMed abstracts.
+- Input: Questions like "Is metformin effective for diabetes?"
+- Output: Yes / No / Maybe with explanation
+- Best for: Clinical decision support, medical literature QA
+
 ```bash
 python run_openscholar.py \
     --input_file pubmedqa_data.json \
@@ -126,6 +136,11 @@ python run_openscholar.py \
 ```
 
 #### Task-Specific: QASA (Detailed QA)
+**Use case**: Provide detailed answers requiring synthesis of multiple papers.
+- Input: Open-ended questions like "What are the mechanisms of CRISPR?"
+- Output: Comprehensive answer with multiple citations
+- Best for: Literature review, research synthesis, educational content
+
 ```bash
 python run_openscholar.py \
     --input_file qasa_data.json \
@@ -136,6 +151,11 @@ python run_openscholar.py \
 ```
 
 #### High-Quality Papers Only (Citation Filter)
+**Use case**: Only use highly-cited papers as sources for more authoritative answers.
+- `--min_citation 50`: Filters out papers with < 50 citations
+- Best for: When you need well-established, peer-validated information
+- Trade-off: May miss recent breakthrough papers (low citations due to recency)
+
 ```bash
 python run_openscholar.py \
     -q "What are the latest treatments for Alzheimer's?" \
@@ -145,6 +165,16 @@ python run_openscholar.py \
 ```
 
 #### Full Pipeline with All Optimizations
+**Use case**: Maximum quality output for important queries.
+- `--ranking_ce`: Rerank for relevance
+- `--feedback`: Self-reflective improvement
+- `--posthoc_at`: Add citation attribution
+- `--use_abstract`: Use abstracts in reranking
+- `--norm_cite`: Normalize citations for fair comparison
+- `--min_citation 10`: Filter low-quality papers
+- `--max_per_paper 3`: Diverse sources
+- Trade-off: Slower (2x LLM calls), higher API cost
+
 ```bash
 python run_openscholar.py \
     --input_file data.json \
@@ -159,6 +189,11 @@ python run_openscholar.py \
 ```
 
 #### Debug: Check Retrieval Quality (Skip Generation)
+**Use case**: Evaluate retrieval and reranking without LLM generation.
+- `--skip_generation`: Only outputs reranked ctxs, no LLM answer
+- Best for: Debugging retrieval pipeline, evaluating reranker quality
+- Output: JSON with reranked contexts, no "output" field
+
 ```bash
 python run_openscholar.py \
     --input_file data.json \
@@ -169,6 +204,11 @@ python run_openscholar.py \
 ```
 
 #### Batch Processing with Sampling
+**Use case**: Test pipeline on a random subset before full run.
+- `--dataset`: Load directly from HuggingFace datasets
+- `--sample_k 100`: Randomly sample 100 items
+- Best for: Pipeline testing, hyperparameter tuning, cost estimation
+
 ```bash
 python run_openscholar.py \
     --dataset OpenScholar/ScholarQABench \
@@ -179,10 +219,29 @@ python run_openscholar.py \
 ```
 
 #### Resume Interrupted Processing
+**Use case**: Continue from where you left off after interruption.
+- `--start_index 500`: Skip first 500 items
+- Auto-resume: If output file exists, automatically continues from last result
+- Best for: Large batch processing, recovering from crashes
+
 ```bash
 python run_openscholar.py \
     --input_file large_data.json \
     --start_index 500 \
+    --use_contexts \
+    --output_file output.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
+#### Reverse Order Processing
+**Use case**: Process data from end to beginning.
+- `--reverse`: Useful when you want to prioritize recent/later items
+- Can combine with `--start_index` for flexible batch control
+
+```bash
+python run_openscholar.py \
+    --input_file data.json \
+    --reverse \
     --use_contexts \
     --output_file output.json \
     --top_n 10 --llama3 --zero_shot

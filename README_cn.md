@@ -106,6 +106,11 @@ python run_openscholar.py \
 ### 更多使用示例
 
 #### 任务特定：SciFact（声明验证）
+**使用场景**：验证一个科学声明是否正确。
+- 输入：声明如 "维生素C可以预防癌症"
+- 输出：SUPPORTS（支持）/ REFUTES（反驳）/ NOT ENOUGH INFO（信息不足）+ 引用
+- 适用：科学声明事实核查、论文审稿、新闻验证
+
 ```bash
 python run_openscholar.py \
     --input_file scifact_data.json \
@@ -116,6 +121,11 @@ python run_openscholar.py \
 ```
 
 #### 任务特定：PubMedQA（是/否/可能）
+**使用场景**：基于 PubMed 摘要回答生物医学是非问题。
+- 输入：问题如 "二甲双胍对糖尿病有效吗？"
+- 输出：Yes / No / Maybe + 解释
+- 适用：临床决策支持、医学文献问答
+
 ```bash
 python run_openscholar.py \
     --input_file pubmedqa_data.json \
@@ -126,6 +136,11 @@ python run_openscholar.py \
 ```
 
 #### 任务特定：QASA（详细问答）
+**使用场景**：提供需要综合多篇论文的详细答案。
+- 输入：开放式问题如 "CRISPR 的工作机制是什么？"
+- 输出：包含多个引用的综合答案
+- 适用：文献综述、研究综合、教育内容
+
 ```bash
 python run_openscholar.py \
     --input_file qasa_data.json \
@@ -136,6 +151,11 @@ python run_openscholar.py \
 ```
 
 #### 仅高质量论文（引用数过滤）
+**使用场景**：只使用高引用论文作为来源，获得更权威的答案。
+- `--min_citation 50`：过滤引用数 < 50 的论文
+- 适用：需要成熟、经过同行验证的信息
+- 权衡：可能错过最新突破性论文（因新发表引用数低）
+
 ```bash
 python run_openscholar.py \
     -q "What are the latest treatments for Alzheimer's?" \
@@ -145,6 +165,16 @@ python run_openscholar.py \
 ```
 
 #### 完整 Pipeline（所有优化）
+**使用场景**：重要查询的最高质量输出。
+- `--ranking_ce`：重排序提升相关性
+- `--feedback`：自反馈改进
+- `--posthoc_at`：添加引用归因
+- `--use_abstract`：使用摘要进行重排序
+- `--norm_cite`：归一化引用数以公平比较
+- `--min_citation 10`：过滤低质量论文
+- `--max_per_paper 3`：来源多样化
+- 权衡：速度较慢（2次 LLM 调用），API 成本更高
+
 ```bash
 python run_openscholar.py \
     --input_file data.json \
@@ -159,6 +189,11 @@ python run_openscholar.py \
 ```
 
 #### 调试：检查检索质量（跳过生成）
+**使用场景**：评估检索和重排序效果，不进行 LLM 生成。
+- `--skip_generation`：只输出重排序后的 ctxs，无 LLM 答案
+- 适用：调试检索流程、评估重排序器质量
+- 输出：JSON 包含重排序后的上下文，无 "output" 字段
+
 ```bash
 python run_openscholar.py \
     --input_file data.json \
@@ -169,6 +204,11 @@ python run_openscholar.py \
 ```
 
 #### 批量处理（采样）
+**使用场景**：在完整运行前先用随机子集测试流程。
+- `--dataset`：直接从 HuggingFace datasets 加载
+- `--sample_k 100`：随机采样 100 条
+- 适用：流程测试、超参数调优、成本估算
+
 ```bash
 python run_openscholar.py \
     --dataset OpenScholar/ScholarQABench \
@@ -179,10 +219,29 @@ python run_openscholar.py \
 ```
 
 #### 断点续传
+**使用场景**：中断后从上次位置继续处理。
+- `--start_index 500`：跳过前 500 条
+- 自动续传：如果输出文件存在，自动从最后结果继续
+- 适用：大批量处理、崩溃恢复
+
 ```bash
 python run_openscholar.py \
     --input_file large_data.json \
     --start_index 500 \
+    --use_contexts \
+    --output_file output.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
+#### 反向顺序处理
+**使用场景**：从后往前处理数据。
+- `--reverse`：适用于优先处理较新/靠后的数据
+- 可与 `--start_index` 组合实现灵活的批次控制
+
+```bash
+python run_openscholar.py \
+    --input_file data.json \
+    --reverse \
     --use_contexts \
     --output_file output.json \
     --top_n 10 --llama3 --zero_shot
