@@ -90,6 +90,104 @@ python run_openscholar.py \
     --top_n 10 --llama3 --zero_shot
 ```
 
+### 高级配置选项
+
+| 选项 | 参数 | 说明 |
+|------|------|------|
+| **任务特定** | `--task_name scifact/pubmedqa/qasa` | 使用任务特定的 prompt 模板 |
+| **引用数过滤** | `--min_citation 10` | 只保留引用数 ≥10 的论文 |
+| **引用归一化** | `--norm_cite` | 归一化引用数用于排序 |
+| **每篇论文限制** | `--max_per_paper 3` | 避免单篇论文主导结果 |
+| **后置归因** | `--posthoc_at` | 生成后添加引用归因 |
+| **调试模式** | `--skip_generation` | 只检索/重排序，跳过 LLM 生成 |
+| **数据采样** | `--sample_k 100` | 从数据集随机采样 100 条 |
+| **断点续传** | `--start_index 50` | 从第 50 条开始处理 |
+
+### 更多使用示例
+
+#### 任务特定：SciFact（声明验证）
+```bash
+python run_openscholar.py \
+    --input_file scifact_data.json \
+    --use_contexts --ranking_ce \
+    --task_name scifact \
+    --output_file scifact_output.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
+#### 任务特定：PubMedQA（是/否/可能）
+```bash
+python run_openscholar.py \
+    --input_file pubmedqa_data.json \
+    --use_contexts --ranking_ce \
+    --task_name pubmedqa \
+    --output_file pubmedqa_output.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
+#### 任务特定：QASA（详细问答）
+```bash
+python run_openscholar.py \
+    --input_file qasa_data.json \
+    --use_contexts --ranking_ce \
+    --task_name qasa \
+    --output_file qasa_output.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
+#### 仅高质量论文（引用数过滤）
+```bash
+python run_openscholar.py \
+    -q "What are the latest treatments for Alzheimer's?" \
+    --ss_retriever \
+    --min_citation 50 \
+    --top_n 10
+```
+
+#### 完整 Pipeline（所有优化）
+```bash
+python run_openscholar.py \
+    --input_file data.json \
+    --use_contexts --ranking_ce \
+    --reranker BAAI/bge-reranker-base \
+    --feedback --posthoc_at \
+    --use_abstract --norm_cite \
+    --min_citation 10 \
+    --max_per_paper 3 \
+    --output_file best_quality.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
+#### 调试：检查检索质量（跳过生成）
+```bash
+python run_openscholar.py \
+    --input_file data.json \
+    --use_contexts --ranking_ce \
+    --skip_generation \
+    --output_file retrieval_only.json \
+    --top_n 10
+```
+
+#### 批量处理（采样）
+```bash
+python run_openscholar.py \
+    --dataset OpenScholar/ScholarQABench \
+    --sample_k 100 \
+    --use_contexts --ranking_ce \
+    --output_file sampled_output.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
+#### 断点续传
+```bash
+python run_openscholar.py \
+    --input_file large_data.json \
+    --start_index 500 \
+    --use_contexts \
+    --output_file output.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
 ### 参数说明
 
 | 参数 | 说明 |

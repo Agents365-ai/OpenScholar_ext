@@ -90,6 +90,104 @@ python run_openscholar.py \
     --top_n 10 --llama3 --zero_shot
 ```
 
+### Advanced Configuration Options
+
+| Option | Parameter | Description |
+|--------|-----------|-------------|
+| **Task-specific** | `--task_name scifact/pubmedqa/qasa` | Use task-specific prompt templates |
+| **Citation filter** | `--min_citation 10` | Only keep papers with ≥10 citations |
+| **Citation normalization** | `--norm_cite` | Normalize citation counts for ranking |
+| **Per-paper limit** | `--max_per_paper 3` | Avoid single paper dominating results |
+| **Post-hoc attribution** | `--posthoc_at` | Add citation attribution after generation |
+| **Debug mode** | `--skip_generation` | Only retrieve/rerank, skip LLM generation |
+| **Data sampling** | `--sample_k 100` | Randomly sample 100 items from dataset |
+| **Resume from index** | `--start_index 50` | Start processing from item 50 |
+
+### More Usage Examples
+
+#### Task-Specific: SciFact (Claim Verification)
+```bash
+python run_openscholar.py \
+    --input_file scifact_data.json \
+    --use_contexts --ranking_ce \
+    --task_name scifact \
+    --output_file scifact_output.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
+#### Task-Specific: PubMedQA (Yes/No/Maybe)
+```bash
+python run_openscholar.py \
+    --input_file pubmedqa_data.json \
+    --use_contexts --ranking_ce \
+    --task_name pubmedqa \
+    --output_file pubmedqa_output.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
+#### Task-Specific: QASA (Detailed QA)
+```bash
+python run_openscholar.py \
+    --input_file qasa_data.json \
+    --use_contexts --ranking_ce \
+    --task_name qasa \
+    --output_file qasa_output.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
+#### High-Quality Papers Only (Citation Filter)
+```bash
+python run_openscholar.py \
+    -q "What are the latest treatments for Alzheimer's?" \
+    --ss_retriever \
+    --min_citation 50 \
+    --top_n 10
+```
+
+#### Full Pipeline with All Optimizations
+```bash
+python run_openscholar.py \
+    --input_file data.json \
+    --use_contexts --ranking_ce \
+    --reranker BAAI/bge-reranker-base \
+    --feedback --posthoc_at \
+    --use_abstract --norm_cite \
+    --min_citation 10 \
+    --max_per_paper 3 \
+    --output_file best_quality.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
+#### Debug: Check Retrieval Quality (Skip Generation)
+```bash
+python run_openscholar.py \
+    --input_file data.json \
+    --use_contexts --ranking_ce \
+    --skip_generation \
+    --output_file retrieval_only.json \
+    --top_n 10
+```
+
+#### Batch Processing with Sampling
+```bash
+python run_openscholar.py \
+    --dataset OpenScholar/ScholarQABench \
+    --sample_k 100 \
+    --use_contexts --ranking_ce \
+    --output_file sampled_output.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
+#### Resume Interrupted Processing
+```bash
+python run_openscholar.py \
+    --input_file large_data.json \
+    --start_index 500 \
+    --use_contexts \
+    --output_file output.json \
+    --top_n 10 --llama3 --zero_shot
+```
+
 ### Parameters
 
 | Parameter | Description |
