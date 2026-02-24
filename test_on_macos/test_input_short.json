@@ -1,0 +1,13 @@
+{
+  "data": [
+    {
+      "input": "What is retrieval-augmented generation?",
+      "ctxs": [
+        {
+          "title": "RAG for NLP Tasks",
+          "text": "RAG models combine pre-trained parametric memory with non-parametric memory (dense vector index) for language generation, accessing external knowledge during inference."
+        }
+      ]
+    }
+  ]
+}

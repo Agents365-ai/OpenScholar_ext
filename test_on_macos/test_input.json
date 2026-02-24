@@ -1,0 +1,49 @@
+{
+  "data": [
+    {
+      "input": "What are the main approaches for retrieval-augmented generation in large language models?",
+      "ctxs": [
+        {
+          "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+          "text": "We explore a general-purpose fine-tuning recipe for retrieval-augmented generation (RAG) models which combine pre-trained parametric and non-parametric memory for language generation. We introduce RAG models where the parametric memory is a pre-trained seq2seq model and the non-parametric memory is a dense vector index of Wikipedia, accessed with a pre-trained neural retriever.",
+          "abstract": "Large pre-trained language models have been shown to store factual knowledge in their parameters, and achieve state-of-the-art results when fine-tuned on downstream NLP tasks. However, their ability to access and precisely manipulate knowledge is still limited.",
+          "citation_counts": 2500,
+          "url": "https://arxiv.org/abs/2005.11401"
+        },
+        {
+          "title": "REALM: Retrieval-Augmented Language Model Pre-Training",
+          "text": "We introduce a novel framework, Retrieval-Augmented Language Model pre-training (REALM), that augments language model pre-training with a learned textual knowledge retriever. REALM is trained end-to-end, using a masked language modeling objective, to retrieve documents that help improve the prediction of the masked tokens.",
+          "abstract": "Language model pre-training has been shown to capture a surprising amount of world knowledge, crucial for NLP tasks such as question answering.",
+          "citation_counts": 1800,
+          "url": "https://arxiv.org/abs/2002.08909"
+        },
+        {
+          "title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+          "text": "We introduce Self-Reflective Retrieval-Augmented Generation (Self-RAG), a new framework to train an LM that adaptively retrieves passages on-demand, and generates and reflects on retrieved passages and its own generations using special reflection tokens.",
+          "abstract": "Despite their remarkable capabilities, large language models (LLMs) often produce responses containing factual inaccuracies due to their sole reliance on the parametric knowledge they encapsulate.",
+          "citation_counts": 450,
+          "url": "https://arxiv.org/abs/2310.11511"
+        }
+      ]
+    },
+    {
+      "input": "How do transformer models handle long-range dependencies in sequences?",
+      "ctxs": [
+        {
+          "title": "Attention Is All You Need",
+          "text": "The Transformer relies entirely on self-attention to compute representations of its input and output without using sequence-aligned RNNs or convolution. Self-attention, sometimes called intra-attention is an attention mechanism relating different positions of a single sequence in order to compute a representation of the sequence.",
+          "abstract": "The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder.",
+          "citation_counts": 95000,
+          "url": "https://arxiv.org/abs/1706.03762"
+        },
+        {
+          "title": "Longformer: The Long-Document Transformer",
+          "text": "We present Longformer, a modified Transformer architecture with a self-attention operation that scales linearly with the sequence length, making it easy to process documents of thousands of tokens or longer. Longformer's attention mechanism is a drop-in replacement for the standard self-attention and combines local windowed attention with task motivated global attention.",
+          "abstract": "Transformer-based models are unable to process long sequences due to their self-attention operation, which scales quadratically with the sequence length.",
+          "citation_counts": 3200,
+          "url": "https://arxiv.org/abs/2004.05150"
+        }
+      ]
+    }
+  ]
+}

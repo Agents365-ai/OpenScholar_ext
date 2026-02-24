@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenScholar Results</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --accent: #dbeafe;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        .qa-card {
+            background: var(--card);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        .question {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .question-num {
+            background: rgba(255,255,255,0.2);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+            font-size: 0.85rem;
+        }
+        .answer {
+            padding: 1.5rem;
+            background: var(--accent);
+            border-bottom: 1px solid var(--border);
+        }
+        .answer-label {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .answer-text {
+            white-space: pre-wrap;
+        }
+        .citation {
+            background: var(--primary);
+            color: white;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .citation:hover { opacity: 0.8; }
+        .references {
+            padding: 1.5rem;
+        }
+        .references-label {
+            font-weight: 600;
+            color: var(--muted);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .ref-item {
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+        .ref-item:hover { border-color: var(--primary); }
+        .ref-item.cited { background: #f0fdf4; border-color: #22c55e; }
+        .ref-num {
+            display: inline-block;
+            background: var(--muted);
+            color: white;
+            padding: 0.1rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+        .ref-item.cited .ref-num { background: #22c55e; }
+        .ref-title {
+            font-weight: 600;
+            color: var(--text);
+        }
+        .ref-title a { color: var(--primary); text-decoration: none; }
+        .ref-title a:hover { text-decoration: underline; }
+        .ref-meta {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 0.25rem;
+        }
+        .ref-abstract {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 0.5rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--border);
+        }
+        .badge {
+            display: inline-block;
+            background: var(--border);
+            padding: 0.1rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+        .badge.cited { background: #dcfce7; color: #166534; }
+        footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 OpenScholar Results</h1>
+
+        <div class="qa-card">
+            <div class="question">
+                <span class="question-num">Q1</span> What are the main approaches for retrieval-augmented generation in large language models?
+            </div>
+            <div class="answer">
+                <div class="answer-label">Answer</div>
+                <div class="answer-text">The main approaches for retrieval-augmented generation in large language models include RAG (Retrieval-Augmented Generation) <span class="citation">[0]</span>, REALM (Retrieval-Augmented Language Model Pre-Training) <span class="citation">[1]</span>, and Self-RAG (Self-Reflective Retrieval-Augmented Generation) <span class="citation">[2]</span>. These methods combine pre-trained parametric and non-parametric memory for language generation by using a dense vector index of Wikipedia or other text datasets, accessed with a pre-trained neural retriever.</div>
+            </div>
+            <div class="references">
+                <div class="references-label">References (3 cited / 3 total)</div>
+
+                <div class="ref-item cited">
+                    <div class="ref-title">
+                        <span class="ref-num">0</span>
+                        <a href="https://arxiv.org/abs/2005.11401" target="_blank">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</a>
+                        <span class="badge cited">Cited</span>
+                        <span class="badge">📊 2,500 citations</span>
+                    </div>
+<div class="ref-abstract">Large pre-trained language models have been shown to store factual knowledge in their parameters, and achieve state-of-the-art results when fine-tuned on downstream NLP tasks. However, their ability to access and precisely manipulate knowledge is sti...</div></div>
+                <div class="ref-item cited">
+                    <div class="ref-title">
+                        <span class="ref-num">1</span>
+                        <a href="https://arxiv.org/abs/2002.08909" target="_blank">REALM: Retrieval-Augmented Language Model Pre-Training</a>
+                        <span class="badge cited">Cited</span>
+                        <span class="badge">📊 1,800 citations</span>
+                    </div>
+<div class="ref-abstract">Language model pre-training has been shown to capture a surprising amount of world knowledge, crucial for NLP tasks such as question answering.</div></div>
+                <div class="ref-item cited">
+                    <div class="ref-title">
+                        <span class="ref-num">2</span>
+                        <a href="https://arxiv.org/abs/2310.11511" target="_blank">Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection</a>
+                        <span class="badge cited">Cited</span>
+                        <span class="badge">📊 450 citations</span>
+                    </div>
+<div class="ref-abstract">Despite their remarkable capabilities, large language models (LLMs) often produce responses containing factual inaccuracies due to their sole reliance on the parametric knowledge they encapsulate.</div></div>
+            </div>
+        </div>
+
+        <div class="qa-card">
+            <div class="question">
+                <span class="question-num">Q2</span> How do transformer models handle long-range dependencies in sequences?
+            </div>
+            <div class="answer">
+                <div class="answer-label">Answer</div>
+                <div class="answer-text">Transformer models can handle long-range dependencies in sequences through various techniques such as using self-attention <span class="citation">[0]</span>, which allows them to attend to all positions in the input sequence simultaneously, and incorporating local windowed attention with task-motivated global attention in architectures like Longformer <span class="citation">[1]</span>. This enables transformer models to capture relationships between distant tokens in a sequence without being limited by sequential processing or position-wise interactions.</div>
+            </div>
+            <div class="references">
+                <div class="references-label">References (2 cited / 2 total)</div>
+
+                <div class="ref-item cited">
+                    <div class="ref-title">
+                        <span class="ref-num">0</span>
+                        <a href="https://arxiv.org/abs/1706.03762" target="_blank">Attention Is All You Need</a>
+                        <span class="badge cited">Cited</span>
+                        <span class="badge">📊 95,000 citations</span>
+                    </div>
+<div class="ref-abstract">The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder.</div></div>
+                <div class="ref-item cited">
+                    <div class="ref-title">
+                        <span class="ref-num">1</span>
+                        <a href="https://arxiv.org/abs/2004.05150" target="_blank">Longformer: The Long-Document Transformer</a>
+                        <span class="badge cited">Cited</span>
+                        <span class="badge">📊 3,200 citations</span>
+                    </div>
+<div class="ref-abstract">Transformer-based models are unable to process long sequences due to their self-attention operation, which scales quadratically with the sequence length.</div></div>
+            </div>
+        </div>
+
+        <footer>
+            Generated by OpenScholar • <a href="https://github.com/AkariAsai/OpenScholar">GitHub</a>
+        </footer>
+    </div>
+</body>
+</html>
