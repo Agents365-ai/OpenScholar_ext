@@ -34,6 +34,35 @@ Speed:   Single Query > Standard RAG > Reranker > Self-Reflective
 
 **Reranker Note:** Uses FlagReranker (priority) or CrossEncoder (fallback if FlagEmbedding not installed)
 
+### OpenScholar Pipeline Architecture
+
+```
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────┐    ┌──────────────────────────┐
+│ ① Datastore │───▶│ ② Retriever │───▶│ ② Reranker  │───▶│  ③ LM   │───▶│ ④ Self-feedback Loop     │
+│             │    │             │    │             │    │         │    │                          │
+│ 45M papers  │    │ 240M embed  │    │ Top N docs  │    │ Generate│    │ Refine → Verify → y*     │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────┘    └──────────────────────────┘
+     │                   │                  │                 │                    │
+     ▼                   ▼                  ▼                 ▼                    ▼
+  Papers DB        Retrieve passages   Rerank by score   Initial answer    Iterative improvement
+```
+
+| Stage | Component | Description | run_openscholar.py |
+|-------|-----------|-------------|-------------------|
+| ① | **Datastore** | 45M papers, 240M embeddings | S2 API (`--ss_retriever`) or input `ctxs` |
+| ② | **Retriever** | Retrieve initial passages | S2 API or pre-retrieved in input file |
+| ② | **Reranker** | Rerank Top N by relevance score | `--ranking_ce` + `--reranker` |
+| ③ | **LM** | Generate initial response y₀ | LM Studio API |
+| ④ | **Self-feedback** | f₂: feedback → y*: refined answer | `--feedback` |
+
+**Full Pipeline Flow:**
+1. **Input**: Query x (e.g., "What are recent advancements in fluorescence biosensing?")
+2. **Retrieve**: Get candidate passages from datastore
+3. **Rerank**: Score passages (0.9, 0.5, 0.2...) → select Top N
+4. **Generate**: LM produces initial response y₀ with citations c₀
+5. **Feedback**: Generate feedback f₂ (e.g., "add more empirical findings...")
+6. **Refine**: Produce improved response y* with verified citations c*
+
 ### Usage Examples
 
 #### Single Query Mode (with S2 Retrieval)
