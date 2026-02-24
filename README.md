@@ -73,10 +73,25 @@ python run_openscholar.py \
 ### Visualize Results
 
 ```bash
-python test_on_macos/visualize_results.py \
-    output.json \
-    --html --md --pdf
+python visualize_results.py output.json --html --md --pdf
 ```
+
+### Comparison: run.py vs run_openscholar.py
+
+| Feature | run.py (Original) | run_openscholar.py (macOS) |
+|---------|-------------------|---------------------------|
+| **Platform** | Linux + CUDA | macOS / Linux / Windows |
+| **Inference Backend** | vllm | LM Studio (OpenAI API) |
+| **GPU Required** | Yes (NVIDIA) | No (Apple Silicon / CPU) |
+| **Reranker** | FlagReranker | FlagReranker / CrossEncoder |
+| **API Support** | OpenAI, Together, Anyscale | LM Studio local API |
+| **S2 Retrieval** | Yes | Yes |
+| **Self-reflective** | Yes | Yes |
+| **All CLI params** | Full | Full compatible |
+
+**When to use which:**
+- `run.py`: Production deployment on Linux servers with NVIDIA GPUs
+- `run_openscholar.py`: Local development on macOS, testing, or non-CUDA environments
 
 ---
 

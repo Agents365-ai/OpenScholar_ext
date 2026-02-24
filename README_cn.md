@@ -73,10 +73,25 @@ python run_openscholar.py \
 ### 结果可视化
 
 ```bash
-python test_on_macos/visualize_results.py \
-    output.json \
-    --html --md --pdf
+python visualize_results.py output.json --html --md --pdf
 ```
+
+### 功能对比：run.py vs run_openscholar.py
+
+| 功能 | run.py (原版) | run_openscholar.py (macOS) |
+|------|--------------|---------------------------|
+| **平台** | Linux + CUDA | macOS / Linux / Windows |
+| **推理后端** | vllm | LM Studio (OpenAI API) |
+| **需要GPU** | 是 (NVIDIA) | 否 (Apple Silicon / CPU) |
+| **重排序器** | FlagReranker | FlagReranker / CrossEncoder |
+| **API支持** | OpenAI, Together, Anyscale | LM Studio 本地 API |
+| **S2检索** | 支持 | 支持 |
+| **自反馈生成** | 支持 | 支持 |
+| **CLI参数** | 完整 | 完全兼容 |
+
+**使用场景：**
+- `run.py`：在配备 NVIDIA GPU 的 Linux 服务器上进行生产部署
+- `run_openscholar.py`：macOS 本地开发、测试或无 CUDA 环境
 
 ---
 
