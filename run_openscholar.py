@@ -332,7 +332,7 @@ def main():
     # Reranking config
     parser.add_argument("--ranking_ce", action="store_true",
                        help="Enable cross-encoder reranking")
-    parser.add_argument("--reranker", type=str, default="BAAI/bge-reranker-base",
+    parser.add_argument("--reranker", type=str, default="OpenScholar/OpenScholar_Reranker",
                        help="Reranker model name")
     parser.add_argument("--min_citation", type=int, default=None,
                        help="Minimum citation count filter")
@@ -387,14 +387,14 @@ def main():
         print("python run_openscholar.py \\")
         print("    --input_file YOUR_INPUT_FILE \\")
         print("    --use_contexts --ranking_ce \\")
-        print("    --reranker BAAI/bge-reranker-base \\")
+        print("    --reranker OpenScholar/OpenScholar_Reranker \\")
         print("    --output_file output.json \\")
         print("    --top_n 10 --llama3 --zero_shot")
         print("\n# 3. Self-reflective Generation Pipeline")
         print("python run_openscholar.py \\")
         print("    --input_file YOUR_INPUT_FILE \\")
         print("    --use_contexts --ranking_ce \\")
-        print("    --reranker BAAI/bge-reranker-base \\")
+        print("    --reranker OpenScholar/OpenScholar_Reranker \\")
         print("    --feedback --use_abstract --norm_cite \\")
         print("    --max_per_paper 3 \\")
         print("    --output_file output.json \\")

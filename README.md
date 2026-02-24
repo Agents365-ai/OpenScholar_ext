@@ -98,7 +98,7 @@ python run_openscholar.py \
 python run_openscholar.py \
     --input_file YOUR_INPUT_FILE \
     --use_contexts --ranking_ce \
-    --reranker BAAI/bge-reranker-base \
+    --reranker OpenScholar/OpenScholar_Reranker \
     --output_file output.json \
     --top_n 10 --llama3 --zero_shot
 ```
@@ -112,7 +112,7 @@ python run_openscholar.py \
 python run_openscholar.py \
     --input_file YOUR_INPUT_FILE \
     --use_contexts --ranking_ce \
-    --reranker BAAI/bge-reranker-base \
+    --reranker OpenScholar/OpenScholar_Reranker \
     --feedback --use_abstract --norm_cite \
     --max_per_paper 3 \
     --output_file output.json \
@@ -208,7 +208,7 @@ python run_openscholar.py \
 python run_openscholar.py \
     --input_file data.json \
     --use_contexts --ranking_ce \
-    --reranker BAAI/bge-reranker-base \
+    --reranker OpenScholar/OpenScholar_Reranker \
     --feedback --posthoc_at \
     --use_abstract --norm_cite \
     --min_citation 10 \
