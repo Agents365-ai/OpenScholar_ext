@@ -93,6 +93,38 @@ python visualize_results.py output.json --html --md --pdf
 - `run.py`：在配备 NVIDIA GPU 的 Linux 服务器上进行生产部署
 - `run_openscholar.py`：macOS 本地开发、测试或无 CUDA 环境
 
+### 参数对比
+
+| 参数 | run.py | run_openscholar.py | 说明 |
+|------|--------|-------------------|------|
+| `--input_file` | ✓ | ✓ | 输入 JSON/JSONL 文件 |
+| `--output_file` | ✓ | ✓ | 输出文件路径 |
+| `--query` | ✗ | ✓ | 单问题模式 |
+| `--task_name` | ✓ | ✓ | 任务类型：default/scifact/pubmedqa/qasa |
+| `--dataset` | ✓ | ✓ | HuggingFace 数据集路径 |
+| `--model_name` | ✓ | ✓ | 模型名称（run.py：实际加载，run_openscholar：仅显示） |
+| `--use_contexts` | ✓ | ✓ | 使用输入中的上下文 |
+| `--llama3` | ✓ | ✓ | Llama3 对话模板 |
+| `--zero_shot` | ✓ | ✓ | 零样本推理 |
+| `--top_n` | ✓ | ✓ | 使用的段落数量（默认：10） |
+| `--max_tokens` | ✓ | ✓ | 最大生成 token 数 |
+| `--feedback` | ✓ | ✓ | 自反馈生成 |
+| `--posthoc_at` | ✓ | ✓ | 后置引用归因 |
+| `--ranking_ce` | ✓ | ✓ | 交叉编码器重排序 |
+| `--reranker` | ✓ | ✓ | 重排序模型路径 |
+| `--min_citation` | ✓ | ✓ | 最小引用数过滤 |
+| `--norm_cite` | ✓ | ✓ | 归一化引用数 |
+| `--ss_retriever` | ✓ | ✓ | Semantic Scholar 检索 |
+| `--use_abstract` | ✓ | ✓ | 使用摘要进行重排序 |
+| `--max_per_paper` | ✓ | ✓ | 每篇论文最大段落数 |
+| `--skip_generation` | ✓ | ✓ | 跳过 LLM 生成 |
+| `--sample_k` | ✓ | ✓ | 采样 K 条数据 |
+| `--reverse` | ✓ | ✓ | 反转数据顺序 |
+| `--start_index` | ✓ | ✓ | 从指定索引开始 |
+| `--api` | ✓ | ✗ | API 提供商（openai/together/anyscale） |
+| `--api_key_fp` | ✓ | ✗ | API 密钥文件路径 |
+| `--download_dir` | ✓ | ✗ | 模型下载目录 |
+
 ---
 
 ## OpenScholar 概述

@@ -93,6 +93,38 @@ python visualize_results.py output.json --html --md --pdf
 - `run.py`: Production deployment on Linux servers with NVIDIA GPUs
 - `run_openscholar.py`: Local development on macOS, testing, or non-CUDA environments
 
+### Parameter Comparison
+
+| Parameter | run.py | run_openscholar.py | Description |
+|-----------|--------|-------------------|-------------|
+| `--input_file` | ✓ | ✓ | Input JSON/JSONL file |
+| `--output_file` | ✓ | ✓ | Output file path |
+| `--query` | ✗ | ✓ | Single query mode |
+| `--task_name` | ✓ | ✓ | Task: default/scifact/pubmedqa/qasa |
+| `--dataset` | ✓ | ✓ | HuggingFace dataset path |
+| `--model_name` | ✓ | ✓ | Model name (run.py: actual, run_openscholar: display only) |
+| `--use_contexts` | ✓ | ✓ | Use contexts from input |
+| `--llama3` | ✓ | ✓ | Llama3 chat template |
+| `--zero_shot` | ✓ | ✓ | Zero-shot inference |
+| `--top_n` | ✓ | ✓ | Number of passages (default: 10) |
+| `--max_tokens` | ✓ | ✓ | Max generation tokens |
+| `--feedback` | ✓ | ✓ | Self-reflective feedback |
+| `--posthoc_at` | ✓ | ✓ | Post-hoc attribution |
+| `--ranking_ce` | ✓ | ✓ | Cross-encoder reranking |
+| `--reranker` | ✓ | ✓ | Reranker model path |
+| `--min_citation` | ✓ | ✓ | Min citation filter |
+| `--norm_cite` | ✓ | ✓ | Normalize citations |
+| `--ss_retriever` | ✓ | ✓ | Semantic Scholar retrieval |
+| `--use_abstract` | ✓ | ✓ | Use abstract for reranking |
+| `--max_per_paper` | ✓ | ✓ | Max passages per paper |
+| `--skip_generation` | ✓ | ✓ | Skip LLM generation |
+| `--sample_k` | ✓ | ✓ | Sample K items |
+| `--reverse` | ✓ | ✓ | Reverse data order |
+| `--start_index` | ✓ | ✓ | Start from index |
+| `--api` | ✓ | ✗ | API provider (openai/together/anyscale) |
+| `--api_key_fp` | ✓ | ✗ | API key file path |
+| `--download_dir` | ✓ | ✗ | Model download directory |
+
 ---
 
 ## OpenScholar (Original)
