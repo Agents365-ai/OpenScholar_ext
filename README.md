@@ -17,9 +17,29 @@ The original OpenScholar `run.py` requires vllm (Linux + CUDA only). This extens
    export S2_API_KEY=YOUR_SEMANTIC_SCHOLAR_API_KEY
    ```
 
+### Pipeline Modes Comparison
+
+| Mode | Retrieval | Reranking | Generation | Self-Feedback | Use Case |
+|------|-----------|-----------|------------|---------------|----------|
+| **Single Query** | S2 API realtime | ✗ | ✓ | ✗ | Quick single question test |
+| **Standard RAG** | From input ctxs | ✗ | ✓ | ✗ | Pre-retrieved contexts |
+| **Retriever + Reranker** | From input ctxs | ✓ FlagReranker | ✓ | ✗ | Higher relevance needed |
+| **Self-Reflective** | From input ctxs + S2 | ✓ FlagReranker | ✓ | ✓ | Highest quality output |
+
+**Quality vs Speed:**
+```
+Quality: Single Query < Standard RAG < Reranker < Self-Reflective
+Speed:   Single Query > Standard RAG > Reranker > Self-Reflective
+```
+
+**Reranker Note:** Uses FlagReranker (priority) or CrossEncoder (fallback if FlagEmbedding not installed)
+
 ### Usage Examples
 
 #### Single Query Mode (with S2 Retrieval)
+- **Input**: Single question
+- **Flow**: S2 retrieval → Generate answer
+- **Best for**: Quick testing
 ```bash
 python run_openscholar.py \
     -q "What is CRISPR gene editing?" \
@@ -28,6 +48,10 @@ python run_openscholar.py \
 ```
 
 #### Standard RAG Pipeline
+- **Input**: JSON file with `ctxs`
+- **Flow**: Use top_n ctxs directly → Generate answer
+- **Best for**: When retrieval quality is already good
+
 ```bash
 python run_openscholar.py \
     --input_file YOUR_INPUT_FILE \
@@ -37,6 +61,10 @@ python run_openscholar.py \
 ```
 
 #### Retriever + Reranker Pipeline
+- **Input**: JSON file with `ctxs`
+- **Flow**: ctxs → Rerank by relevance → Generate answer
+- **Best for**: Improving retrieval quality with reranking
+
 ```bash
 python run_openscholar.py \
     --input_file YOUR_INPUT_FILE \
@@ -47,6 +75,10 @@ python run_openscholar.py \
 ```
 
 #### Self-Reflective Generation Pipeline
+- **Input**: JSON file with `ctxs`
+- **Flow**: ctxs → Rerank → Generate → Self-feedback → Improved answer
+- **Best for**: Highest quality (2x LLM calls)
+
 ```bash
 python run_openscholar.py \
     --input_file YOUR_INPUT_FILE \

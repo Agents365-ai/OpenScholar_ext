@@ -17,9 +17,29 @@
    export S2_API_KEY=你的Semantic_Scholar_API_KEY
    ```
 
+### Pipeline 模式对比
+
+| 模式 | 检索 | 重排序 | 生成 | 自反馈 | 适用场景 |
+|------|------|--------|------|--------|----------|
+| **Single Query** | S2 API 实时检索 | ✗ | ✓ | ✗ | 快速单问题测试 |
+| **Standard RAG** | 使用输入文件 ctxs | ✗ | ✓ | ✗ | 离线检索已完成 |
+| **Retriever + Reranker** | 使用输入文件 ctxs | ✓ FlagReranker | ✓ | ✗ | 需要更高相关性 |
+| **Self-Reflective** | 使用输入文件 ctxs + S2 | ✓ FlagReranker | ✓ | ✓ | 最高质量输出 |
+
+**质量 vs 速度：**
+```
+质量: Single Query < Standard RAG < Reranker < Self-Reflective
+速度: Single Query > Standard RAG > Reranker > Self-Reflective
+```
+
+**重排序说明：** 优先使用 FlagReranker，如未安装 FlagEmbedding 则使用 CrossEncoder 备选
+
 ### 使用示例
 
 #### 单问题模式（使用 S2 检索）
+- **输入**：单个问题
+- **流程**：S2 检索 → 生成答案
+- **适用**：快速测试
 ```bash
 python run_openscholar.py \
     -q "What is CRISPR gene editing?" \
@@ -28,6 +48,10 @@ python run_openscholar.py \
 ```
 
 #### 标准 RAG Pipeline
+- **输入**：包含 `ctxs` 的 JSON 文件
+- **流程**：直接使用 top_n 个 ctxs → 生成答案
+- **适用**：检索质量已足够好
+
 ```bash
 python run_openscholar.py \
     --input_file YOUR_INPUT_FILE \
@@ -37,6 +61,10 @@ python run_openscholar.py \
 ```
 
 #### 检索 + 重排序 Pipeline
+- **输入**：包含 `ctxs` 的 JSON 文件
+- **流程**：ctxs → 重排序选出最相关 → 生成答案
+- **适用**：通过重排序提升检索质量
+
 ```bash
 python run_openscholar.py \
     --input_file YOUR_INPUT_FILE \
@@ -47,6 +75,10 @@ python run_openscholar.py \
 ```
 
 #### 自反馈生成 Pipeline
+- **输入**：包含 `ctxs` 的 JSON 文件
+- **流程**：ctxs → 重排序 → 生成 → 自我反馈 → 改进生成
+- **适用**：最高质量输出（2次 LLM 调用）
+
 ```bash
 python run_openscholar.py \
     --input_file YOUR_INPUT_FILE \
