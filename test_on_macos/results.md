@@ -6,7 +6,13 @@
 
 ### Answer
 
-The main approaches for retrieval-augmented generation in large language models include RAG (Retrieval-Augmented Generation) [0], REALM (Retrieval-Augmented Language Model Pre-Training) [1], and Self-RAG (Self-Reflective Retrieval-Augmented Generation) [2]. These methods combine pre-trained parametric and non-parametric memory for language generation by using a dense vector index of Wikipedia or other text datasets, accessed with a pre-trained neural retriever.
+Retrieval-Augmented Generation (RAG) models combine pre-trained parametric and non-parametric memory for language generation. The main approaches for RAG include:
+
+1. Introducing a general-purpose fine-tuning recipe for RAG models where the parametric memory is a pre-trained seq2seq model and the non-parametric memory is a dense vector index of Wikipedia, accessed with a pre-trained neural retriever [0].
+2. Retrieval-Augmented Language Model Pre-training (REALM), which augments language model pre-training with a learned textual knowledge retriever trained end-to-end using a masked language modeling objective to retrieve documents that help improve the prediction of the masked tokens [1].
+3. Self-RAG, which trains an LM that adaptively retrieves passages on-demand and generates and reflects on retrieved passages and its own generations using special reflection tokens [2].
+
+These approaches aim to leverage external knowledge from large-scale text corpora to enhance the language generation capabilities of pre-trained language models.
 
 ### References
 
@@ -30,7 +36,11 @@ The main approaches for retrieval-augmented generation in large language models 
 
 ### Answer
 
-Transformer models can handle long-range dependencies in sequences through various techniques such as using self-attention [0], which allows them to attend to all positions in the input sequence simultaneously, and incorporating local windowed attention with task-motivated global attention in architectures like Longformer [1]. This enables transformer models to capture relationships between distant tokens in a sequence without being limited by sequential processing or position-wise interactions.
+Transformer models can handle long-range dependencies in sequences through the use of self-attention mechanisms [0]. Self-attention allows each position in a sequence to attend to all other positions, enabling the model to capture long-range relationships between elements. In the case of the Transformer model, it relies entirely on self-attention to compute representations of its input and output without using sequence-aligned RNNs or convolution [0].
+
+However, traditional Transformer models can struggle with handling sequences longer than a certain length due to their quadratic complexity in terms of computational cost and memory usage [1]. To address this limitation, modified Transformer architectures like Longformer have been proposed. Longformer uses a drop-in replacement for the standard self-attention mechanism that combines local windowed attention with task-motivated global attention [1], allowing it to scale linearly with the sequence length and process documents of thousands of tokens or longer.
+
+In summary, transformer models can handle long-range dependencies through self-attention mechanisms [0]. While traditional Transformer models face limitations in handling very long sequences, modified architectures like Longformer offer a solution by scaling linearly with sequence length while maintaining the benefits of self-attention [1].
 
 ### References
 
