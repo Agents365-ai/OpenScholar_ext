@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "input": "What is retrieval-augmented generation?",
+      "ctxs": [
+        {
+          "title": "RAG for NLP Tasks",
+          "text": "RAG models combine pre-trained parametric memory with non-parametric memory (dense vector index) for language generation, accessing external knowledge during inference."
+        }
+      ],
+      "output": "Retrieval-Augmentation-to-Generation (RAG), also known as Retrieval-Augmented Generation or Retrieval-AUG, is a type of natural language processing model that combines the strengths of parametric and non-parametric memory [0]. This approach involves using a pre-trained parametric model as the primary generator and augmenting its output with information retrieved from a large external knowledge base. During inference, RAG models access external knowledge by querying the dense vector index to retrieve relevant passages based on their input prompts or questions. The retrieved passages are then used to fine-tune the parameters of the generator, allowing it to generate more accurate and informative text [0]. By leveraging both internal (parametric) and external (non-parametric) memory, RAG models can produce high-quality output while avoiding the limitations of either approach alone.\n\nRAG has shown state-of-the-art performance in various NLP tasks such as question answering, summarization, dialogue generation, and text-to-text translation [0]. Its ability to effectively utilize external knowledge has made it a valuable tool for applications requiring deep understanding and contextualized responses."
+    }
+  ]
+}
